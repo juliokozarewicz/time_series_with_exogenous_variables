@@ -59,15 +59,6 @@ try:
     data_non_seasonal["index_date"] = to_datetime(data_non_seasonal["index_date"])
     data_non_seasonal = data_non_seasonal.sort_values("index_date")
     data_non_seasonal = data_non_seasonal.set_index("index_date")
-    
-    stationarity = Stationarity_diff(data_non_seasonal,
-                                     config.data_exogs,
-                                     config.variable, 
-                                     config.p_value_accepted)
-
-    stationarity.adf_teste()
-    stationarity.diff_data()
-    stationarity.independent_var_stationarity()
 
 except:
     print(f"\n\n\n{'=' * 80}\n\n")
@@ -76,7 +67,15 @@ except:
     print("• Activate X13-ARIMA-SEATS in the 'main.py' file;\n")
     print("• Use other methods, such as: decomposition, Hodrick–Prescott filter or seasonal dummies (don't forget to put the file in the '3_working' folder and rename the file to 'seasonal_adjustment.csv'.")
     print(f"\n\n{'=' * 80}\n\n")
+    exit()
 
+stationarity = Stationarity_diff(data_non_seasonal,
+                                 config.variable, 
+                                 config.p_value_accepted)
+
+stationarity.adf_teste()
+stationarity.diff_data()
+stationarity.independent_var_stationarity()
 # ==========================================================================
 # }
 

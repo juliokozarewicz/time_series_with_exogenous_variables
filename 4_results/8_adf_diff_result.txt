@@ -4,12 +4,12 @@ ADF Results:
 Nonseasonal differences needed for stationarity: 1
 
 Variable: IBOV
-ADF Test: -5.368357
-P-value: 0.000042
+ADF Test: -5.329939
+P-value: 0.000049
 Lags: 8
-Observations: 122
+Observations: 123
 Critical values:
-  1%: -4.034960
-  5%: -3.447109
-  10%: -3.148519
+  1%: -4.034324
+  5%: -3.446806
+  10%: -3.148343
 --------------------------------------------------

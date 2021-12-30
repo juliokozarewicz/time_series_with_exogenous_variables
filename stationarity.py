@@ -1,27 +1,29 @@
 from statsmodels.tsa.stattools import adfuller as adf
-from pandas import read_csv
+from pandas import read_csv, DataFrame, to_datetime, concat
+from matplotlib import pyplot as plt
+
 
 class Stationarity_diff:
     """
     Study of data stationarity.
     
     Required settings:
-        - data_endog (dependent variable)
-        - data_exogs (independent variables)
+        - data (dependent variable)
         - variable (formatted dependent variable - "NAME VARIABLE")
         - p_value_accepted (p-value number accepted)
         
     Syntax: Stationarity_diff(data_endog, data_exogs, variable name, p-value)
     """
 
-    def __init__(self, data_endog, data_exogs, variable, p_value_accepted=0.05):
+    def __init__(self, data, variable, p_value_accepted=0.05):
         """
         Settings for the outputs.
         """
         
         # data frame
-        self.data_endog = data_endog.iloc[ : , 0 ]
-        self.data_exogs = data_exogs
+        self.data_endog = data.iloc[ : , 0 : 1 ]
+        self.data_exogs = data.iloc[ : , 1 :   ]
+        self.data_all = data
         
         # configs
         self.variable = variable
@@ -70,10 +72,9 @@ class Stationarity_diff:
             adf_p_value = adf_test_diff[1]
             
             if adf_p_value > self.p_value_accepted:
-                stationary_series = self.data_endog.diff().dropna()
+                stationary_series = self.data_endog.diff().fillna(value=0)
                 self.data_endog = stationary_series
                 count_diff += 1
-                self.data_endog.to_csv("3_working/stationary_db.csv")
             
             else:
                 adf_diff = adf(self.data_endog, regression='ct')
@@ -100,10 +101,24 @@ class Stationarity_diff:
         
         return
 
+
     def independent_var_stationarity(self):
         """
         Treatment of stationarity of independent variables.
         """
-
-        print(self.data_endog)
-        print(self.data_exogs)
+       
+        list_exog_col = self.data_all.columns.to_list()
+        
+        for col in list_exog_col:
+            while True:
+                adf_test_diff = adf(self.data_all[col], regression='ct')
+                adf_p_value = adf_test_diff[1]
+                
+                if adf_p_value > self.p_value_accepted:
+                    stat_col = self.data_all[col].diff().fillna(value=0)
+                    self.data_all[col] = stat_col
+                
+                else:
+                    break
+        
+        self.data_all.to_csv("3_working/stationary.csv")

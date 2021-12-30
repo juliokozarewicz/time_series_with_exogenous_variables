@@ -155,3 +155,6 @@ class X13_arima_desaz:
             df_seas_raw[col] = exec_x13_independ.seasadj.values
         
         df_seas_raw.to_csv("3_working/seasonal_adjustment.csv", sep=",", index=False)
+        
+        return
+    

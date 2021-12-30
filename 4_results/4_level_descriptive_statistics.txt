@@ -1,11 +1,11 @@
 --------------------------------------------------
 Descriptive analysis:
 
-Variable: IBOV (level)
-Mean: 67914.85
-Median: 62973.24
-Sample std: 18479.48
-Variance: 341491146.83
-Lowest: 40405.99
-Highest: 119017.24
+Variable: IDP (level)
+Mean: 6365.36
+Median: 6130.70
+Sample std: 2870.73
+Variance: 8241065.79
+Lowest: -103.30
+Highest: 16274.70
 --------------------------------------------------

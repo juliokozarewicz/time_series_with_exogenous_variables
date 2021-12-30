@@ -1,10 +1,10 @@
 import config
+import warnings
+from pandas import read_csv, to_datetime
 from descriptive_statistics import Time_serie_level
 from x13arima_seas_adjust import X13_arima_desaz
 from stationarity import Stationarity_diff
-from pandas import read_csv, to_datetime
-import warnings
-
+from model_execute import Model_execute
 
 # suppress warnings - sorry about that =(
 warnings.filterwarnings("ignore")
@@ -53,8 +53,7 @@ x13_desaz.independent_desaz_x13()
 # ==========================================================================
 
 try:
-    data_non_seasonal = read_csv("3_working/seasonal_adjustment.csv",
-                                 sep=",", decimal=".")
+    data_non_seasonal = read_csv("3_working/seasonal_adjustment.csv", sep=",", decimal=".")
 
     data_non_seasonal["index_date"] = to_datetime(data_non_seasonal["index_date"])
     data_non_seasonal = data_non_seasonal.sort_values("index_date")
@@ -69,13 +68,52 @@ except:
     print(f"\n\n{'=' * 80}\n\n")
     exit()
 
-stationarity = Stationarity_diff(data_non_seasonal,
-                                 config.variable, 
-                                 config.p_value_accepted)
+stationarity = Stationarity_diff(data_non_seasonal, config.variable, config.p_value_accepted)
 
 stationarity.adf_teste()
 stationarity.diff_data()
 stationarity.independent_var_stationarity()
+
+# ==========================================================================
+# }
+
+
+# model execute {
+# ==========================================================================
+
+# open stationary data
+# --------------------------------------------------------------------------
+try:
+    data_stationarity = read_csv("3_working/stationary.csv", sep=",", decimal=".")
+
+    data_stationarity["index_date"] = to_datetime(data_stationarity["index_date"])
+    data_stationarity = data_stationarity.sort_values("index_date")
+    data_stationarity = data_stationarity.set_index("index_date")
+
+except:
+    print(f"\n\n\n{'=' * 80}\n\n")
+    print("The file 'stationary.csv' was not found in the '3_working' folder.")
+    print(f"\n\n{'=' * 80}\n\n")
+    exit()
+# --------------------------------------------------------------------------
+#   }
+
+# model execute {
+# --------------------------------------------------------------------------
+model = Model_execute(data_stationarity, config.variable,
+		              config.style_graph, config.color1, config.color2, 
+                      config.color3, config.color4, config.color5)
+
+model.model_execute(config.p, config.d, config.q, 
+                    config.P, config.D, config.Q, config.s)
+
+model.residuals_analysis()
+model.acf_pacf_residuals()
+model.ts_residuals_plot()
+#model.adjust_predict()
+# --------------------------------------------------------------------------
+#   }
+
 # ==========================================================================
 # }
 

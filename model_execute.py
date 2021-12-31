@@ -242,17 +242,8 @@ class Model_execute:
         plt.legend(["observed",
                     f"fitted model (R² = {r2:.2f}%)"])
         
-        # forecast
-        #forecast = self.model_fit.get_forecast(12)
-
-        # predict
-        #predict = forecast.predicted_mean
-        
-        
         
         # save
         plt.tight_layout()
         plt.savefig(f"4_results/13_observed_fitted_predict.jpg")
-        
-        return
 

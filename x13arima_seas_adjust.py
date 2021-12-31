@@ -135,7 +135,7 @@ class X13_arima_desaz:
         plt.savefig(f'4_results/6_x13_seasonal_adjustment.jpg')
         
         # new data frame
-        x13_seasonal.to_csv("3_working/seasonal_adjustment.csv",
+        x13_seasonal.to_csv("3_working/1_seasonal_adjustment.csv",
                                index_label="index_date", sep=",")
         
         return
@@ -146,7 +146,7 @@ class X13_arima_desaz:
         Deseasonalization of independent variables.
         """
         
-        df_seas_raw = read_csv("3_working/seasonal_adjustment.csv", sep=",")
+        df_seas_raw = read_csv("3_working/1_seasonal_adjustment.csv", sep=",")
        
         list_exog_col = self.data_exogs.columns.to_list()
         
@@ -154,7 +154,7 @@ class X13_arima_desaz:
             exec_x13_independ = x13a(self.data_exogs[col], x12path=self.path)
             df_seas_raw[col] = exec_x13_independ.seasadj.values
         
-        df_seas_raw.to_csv("3_working/seasonal_adjustment.csv", sep=",", index=False)
+        df_seas_raw.to_csv("3_working/1_seasonal_adjustment.csv", sep=",", index=False)
         
         return
     

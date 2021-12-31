@@ -7,7 +7,8 @@ variable_ = list(data_endog.columns.values.tolist())[0]
 variable = variable_.replace("_", ' ').upper()
 
 # x13 arima path
-path_x13_arima = "/home/edu/x13as/"
+#path_x13_arima = "/home/edu/x13as/"
+path_x13_arima = "C:/Program Files (x86)/x13as/0_x13as"
 
 # p-value
 p_value_accepted = 0.05

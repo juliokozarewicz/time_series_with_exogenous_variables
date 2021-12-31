@@ -142,7 +142,7 @@ class Time_serie_level:
         
         # plot
         ps = abs(fft(self.data_endog, n=len(self.data_endog / 4 )  ) )  ** 2
-        periodogram = plt.plot(ps, color=self.color1)
+        periodogram = plt.plot(ps[1:], color=self.color1)
         
         # save
         plt.title(f"PERIODOGRAM - {self.variable} (LEVEL)")

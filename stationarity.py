@@ -121,6 +121,6 @@ class Stationarity_diff:
                 else:
                     break
         
-        self.data_all.to_csv("3_working/stationary.csv")
+        self.data_all.to_csv("3_working/2_stationary.csv")
         
         return

@@ -1,6 +1,5 @@
 from datetime import datetime
 from pmdarima.arima import auto_arima
-from datetime import datetime
 from pandas import DataFrame
 from pandas import read_csv
 from statsmodels.tsa.statespace.sarimax import SARIMAX
@@ -121,6 +120,7 @@ class Model_execute:
         
         return
 
+
     def acf_pacf_residuals(self):
         """
         Residuals ACF and PACF.
@@ -131,24 +131,24 @@ class Model_execute:
         resid = DataFrame(self.model_fit.resid, columns=[f"{self.variable}"])
         
         acf = plot_acf(resid.values.squeeze(),
-                lags = len(resid) / 3,
-                use_vlines = True,
-                title = f"{self.variable} - ACF (RESIDUALS)",
-                color = self.color1,
-                vlines_kwargs = {"colors": self.color1},
-                alpha=0.05,
-                zero=False,
-                ax=ax[0])
+                            lags = len(resid) / 3,
+                            use_vlines = True,
+                            title = f"{self.variable} - ACF (RESIDUALS)",
+                            color = self.color1,
+                            vlines_kwargs = {"colors": self.color1},
+                            alpha=0.05,
+                            zero=False,
+                            ax=ax[0])
         
         pacf = plot_pacf(resid.values.squeeze(),
-                lags = len(resid) / 3,
-                use_vlines = True,
-                title = f"{self.variable} - PACF (RESIDUALS)",
-                color = self.color2,
-                vlines_kwargs = {"colors": self.color2},
-                alpha=0.05,
-                zero=False, 
-                ax=ax[1])
+                            lags = len(resid) / 3,
+                            use_vlines = True,
+                            title = f"{self.variable} - PACF (RESIDUALS)",
+                            color = self.color2,
+                            vlines_kwargs = {"colors": self.color2},
+                            alpha=0.05,
+                            zero=False, 
+                            ax=ax[1])
         
         ax[0].set_ylim(-0.4, 0.4)
         ax[1].set_ylim(-0.4, 0.4)
@@ -174,7 +174,7 @@ class Model_execute:
                                    legend=False,
                                    density=True,
                                    figsize=(12, 6))
-
+        
         plt.title(f"{self.variable.upper()} - RESIDUALS")
         
         plt.tight_layout()
@@ -190,7 +190,7 @@ class Model_execute:
         """
         
         resid = DataFrame(self.model_fit.resid, columns=[f"{self.variable}"])
-
+        
         fig, ax = plt.subplots(1, 1, sharex=False, figsize=( 12 , 6), dpi=300)
         
         resid_plot = resid.plot(title=f"RESIDUALS - {self.variable}",
@@ -198,7 +198,7 @@ class Model_execute:
                                 legend=False,
                                 xlabel="",
                                 ylabel="")
-
+        
         plt.tight_layout()
         resid_plot.figure.savefig(f"4_results/12_residuals (time serie).jpg")
         
@@ -211,79 +211,48 @@ class Model_execute:
         """
         
         # plot config
-        fig, ax = plt.subplots(1, 1, sharex=False, figsize=( 12 , 6), dpi=300)
+        fig, ax = plt.subplots(1, 1, sharex=True, figsize=( 12 , 6), dpi=300)
         plt.rcParams.update({'font.size': 12})
         plt.style.use(self.style_graph)
         
         # fit model
         init_fitted = 24
         self.data_endog[f"{self.variable_}_fitted"] = self.model_fit.predict(start=init_fitted,
-                                                               end=len(self.data_endog),
-                                                               dynamic=False)
+                                                                             dynamic=False)
+        
+        self.data_endog.to_csv("3_working/3_data_base_fitted.csv", sep=",")
         
         # plot observed
-        effective = self.data_endog.iloc[ :, 0 ].plot(title=f"{self.variable}",
-                                                            xlabel="",
-                                                            ylabel="",
-                                                            color=self.color1,
-                                                            figsize=(12, 6))
+        effective = self.data_endog.iloc[ : , 0 ].plot(title=f"{self.variable}",
+                                                        xlabel="",
+                                                        ylabel="",
+                                                        color=self.color1,
+                                                        figsize=(12, 6))
         
         # plot fitted
         adjustment = self.data_endog.iloc[ : , 1 ].plot(xlabel="",
-                                                    ylabel="",
-                                                    color=self.color2)
-        
-        # forecast
-        forecast = self.model_fit.get_forecast(12)
-        
-        # predict
-        predict = forecast.predicted_mean
-        
-        # confidence interval
-        predict_conf_int_95 = forecast.conf_int(alpha=0.05)
-        predict_conf_int_50 = forecast.conf_int(alpha=0.50)
-        
-        #plot predict
-        predict = predict.plot( xlabel="",
-                                ylabel="",
-                                color=self.color3)
-        
-        #plot confidence interval
-        predict_conf_95 = fill_between(predict_conf_int_95.index,
-                                       predict_conf_int_95.iloc[ : , 0 ],
-                                       predict_conf_int_95.iloc[ : , 1 ],
-                                       color=self.color4,
-                                       alpha=0.05)
-
-        predict_conf_50 = fill_between(predict_conf_int_50.index,
-                                       predict_conf_int_50.iloc[ : , 0 ],
-                                       predict_conf_int_50.iloc[ : , 1 ],
-                                       color=self.color4, 
-                                       alpha=0.1)
+                                                        ylabel="",
+                                                        color=self.color2)
         
         # r-squared
         r2_fit = init_fitted - len(self.data_endog)
         r2 = r2_score(self.data_endog.iloc[ r2_fit : -1 , 0 ],
                       self.data_endog.iloc[ r2_fit : -1 , 1 ])
         
-        plt.legend(["original",
-                    f"fitted_model (R² = {r2:.2f}%)",
-                    "forecast",
-                    "int. 95%",
-                    "int. 50%"])
+        plt.legend(["observed",
+                    f"fitted model (R² = {r2:.2f}%)"])
+        
+        # forecast
+        #forecast = self.model_fit.get_forecast(12)
+
+        # predict
+        #predict = forecast.predicted_mean
+        
+        
         
         # save
         plt.tight_layout()
         plt.savefig(f"4_results/13_observed_fitted_predict.jpg")
-        
-        df_predict = DataFrame(forecast.predicted_mean)
-        
-        df_predict = df_predict.rename(columns={'predicted_mean': f"{self.variable_}_forecast"})
-        
-        df_predict.to_csv('4_results/14_predict_mean.txt',
-                          sep=",",
-                          decimal=".",
-                          index_label="index_date")
         
         return
 

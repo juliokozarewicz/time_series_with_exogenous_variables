@@ -42,7 +42,6 @@ x13_desaz.x13_results()
 x13_desaz.x13_seasonal_adjustment()
 x13_desaz.independent_desaz_x13()
 # --------------------------------------------------------------------------
-
 #   }
 
 # ==========================================================================
@@ -53,7 +52,7 @@ x13_desaz.independent_desaz_x13()
 # ==========================================================================
 
 try:
-    data_non_seasonal = read_csv("3_working/seasonal_adjustment.csv", sep=",", decimal=".")
+    data_non_seasonal = read_csv("3_working/1_seasonal_adjustment.csv", sep=",", decimal=".")
 
     data_non_seasonal["index_date"] = to_datetime(data_non_seasonal["index_date"])
     data_non_seasonal = data_non_seasonal.sort_values("index_date")
@@ -61,10 +60,10 @@ try:
 
 except:
     print(f"\n\n\n{'=' * 80}\n\n")
-    print(">>> The file with non-seasonal data 'seasonal_adjustment.csv' does not exist in the folder '3_working'. You have the options:\n\n")
-    print("• Copy, paste and rename the file 'data_base.csv' to 'seasonal_adjustment.csv' and work with the data without seasonality treatment;\n")
+    print(">>> The file with non-seasonal data '1_seasonal_adjustment.csv' does not exist in the folder '3_working'. You have the options:\n\n")
+    print("• Copy, paste and rename the file 'data_base.csv' to '1_seasonal_adjustment.csv' and work with the data without seasonality treatment;\n")
     print("• Activate X13-ARIMA-SEATS in the 'main.py' file;\n")
-    print("• Use other methods, such as: decomposition, Hodrick–Prescott filter or seasonal dummies (don't forget to put the file in the '3_working' folder and rename the file to 'seasonal_adjustment.csv'.")
+    print("• Use other methods, such as: decomposition, Hodrick–Prescott filter or seasonal dummies (don't forget to put the file in the '3_working' folder and rename the file to '1_seasonal_adjustment.csv'.")
     print(f"\n\n{'=' * 80}\n\n")
     exit()
 
@@ -84,7 +83,7 @@ stationarity.independent_var_stationarity()
 # open stationary data
 # --------------------------------------------------------------------------
 try:
-    data_stationarity = read_csv("3_working/stationary.csv", sep=",", decimal=".")
+    data_stationarity = read_csv("3_working/2_stationary.csv", sep=",", decimal=".")
 
     data_stationarity["index_date"] = to_datetime(data_stationarity["index_date"])
     data_stationarity = data_stationarity.sort_values("index_date")
@@ -92,7 +91,7 @@ try:
 
 except:
     print(f"\n\n\n{'=' * 80}\n\n")
-    print("The file 'stationary.csv' was not found in the '3_working' folder.")
+    print("The file '2_stationary.csv' was not found in the '3_working' folder.")
     print(f"\n\n{'=' * 80}\n\n")
     exit()
 # --------------------------------------------------------------------------
@@ -101,7 +100,7 @@ except:
 # model execute {
 # --------------------------------------------------------------------------
 model = Model_execute(data_stationarity, config.variable,
-		              config.style_graph, config.color1, config.color2, 
+		      config.style_graph, config.color1, config.color2, 
                       config.color3, config.color4, config.color5)
 
 model.model_execute(config.p, config.d, config.q, 
@@ -110,7 +109,7 @@ model.model_execute(config.p, config.d, config.q,
 model.residuals_analysis()
 model.acf_pacf_residuals()
 model.ts_residuals_plot()
-#model.adjust_predict()
+model.adjust_predict()
 # --------------------------------------------------------------------------
 #   }
 

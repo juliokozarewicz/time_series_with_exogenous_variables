@@ -1,35 +1,31 @@
                                      SARIMAX Results                                      
 ==========================================================================================
-Dep. Variable:                                idp   No. Observations:                  132
-Model:             SARIMAX(1, 1, 1)x(1, 1, 1, 12)   Log Likelihood               -1123.361
-Date:                            Fri, 31 Dec 2021   AIC                           2272.722
-Time:                                    12:34:28   BIC                           2308.851
-Sample:                                01-01-2010   HQIC                          2287.393
+Dep. Variable:                                idp   No. Observations:                   72
+Model:             SARIMAX(0, 1, 0)x(0, 1, 0, 12)   Log Likelihood                -580.034
+Date:                            Sat, 01 Jan 2022   AIC                           1178.069
+Time:                                    14:41:35   BIC                           1196.766
+Sample:                                01-01-2015   HQIC                          1185.368
                                      - 12-01-2020                                         
 Covariance Type:                              opg                                         
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-intercept    -12.9849     47.127     -0.276      0.783    -105.351      79.382
-iec            0.1104      0.150      0.738      0.460      -0.183       0.404
-ibov          -0.0440      0.165     -0.267      0.790      -0.367       0.279
-oil           66.2050     92.943      0.712      0.476    -115.960     248.370
-dolfut     -1357.5929   2376.015     -0.571      0.568   -6014.497    3299.311
-ipca        -363.0404   1736.491     -0.209      0.834   -3766.500    3040.419
-embi           6.1570     22.606      0.272      0.785     -38.150      50.464
-selic       -125.0674    930.556     -0.134      0.893   -1948.924    1698.789
-ar.L1          0.0618      0.253      0.244      0.807      -0.434       0.557
-ma.L1         -0.7463      0.200     -3.731      0.000      -1.138      -0.354
-ar.S.L12      -0.0682      0.243     -0.281      0.779      -0.544       0.407
-ma.S.L12      -0.8060      0.293     -2.752      0.006      -1.380      -0.232
-sigma2      1.432e+07      0.114   1.25e+08      0.000    1.43e+07    1.43e+07
+intercept     54.4480    666.580      0.082      0.935   -1252.025    1360.921
+iec            0.1451      0.104      1.389      0.165      -0.060       0.350
+ibov          -0.1310      0.148     -0.883      0.377      -0.422       0.160
+oil          128.8448     85.530      1.506      0.132     -38.792     296.481
+dolfut       399.1052   3142.173      0.127      0.899   -5759.441    6557.651
+ipca          -6.5193    798.172     -0.008      0.993   -1570.908    1557.869
+embi          27.9339     18.398      1.518      0.129      -8.126      63.994
+selic        138.0281    845.371      0.163      0.870   -1518.869    1794.925
+sigma2      2.026e+07      0.062   3.25e+08      0.000    2.03e+07    2.03e+07
 ===================================================================================
-Ljung-Box (L1) (Q):                   0.25   Jarque-Bera (JB):                 1.68
-Prob(Q):                              0.62   Prob(JB):                         0.43
-Heteroskedasticity (H):               0.73   Skew:                            -0.10
-Prob(H) (two-sided):                  0.32   Kurtosis:                         2.45
+Ljung-Box (L1) (Q):                   6.52   Jarque-Bera (JB):                 1.50
+Prob(Q):                              0.01   Prob(JB):                         0.47
+Heteroskedasticity (H):               1.11   Skew:                            -0.39
+Prob(H) (two-sided):                  0.82   Kurtosis:                         2.94
 ===================================================================================
 
 Warnings:
 [1] Covariance matrix calculated using the outer product of gradients (complex-step).
-[2] Covariance matrix is singular or near-singular, with condition number 2.15e+25. Standard errors may be unstable.
+[2] Covariance matrix is singular or near-singular, with condition number 4.29e+24. Standard errors may be unstable.

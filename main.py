@@ -5,6 +5,7 @@ from descriptive_statistics import Time_serie_level
 from x13arima_seas_adjust import X13_arima_desaz
 from stationarity import Stationarity_diff
 from model_execute import Model_execute
+from data_input import variable, data_endog, data_exogs
 
 # suppress warnings - sorry about that =(
 warnings.filterwarnings("ignore")
@@ -13,7 +14,7 @@ warnings.filterwarnings("ignore")
 # Time_serie_level (descriptive statistics) {
 # ==========================================================================
 
-descriptive_statistics = Time_serie_level(config.data_endog, config.variable,
+descriptive_statistics = Time_serie_level(data_endog, variable,
 			 config.style_graph, config.color1, config.color2, 
                          config.color3, config.color4, config.color5)
 
@@ -31,9 +32,9 @@ descriptive_statistics.descriptive_stat()
 
 # x13-arima-seats {
 # --------------------------------------------------------------------------
-x13_desaz = X13_arima_desaz(config.data_endog, 
-                            config.data_exogs,
-                            config.variable,
+x13_desaz = X13_arima_desaz(data_endog, 
+                            data_exogs,
+                            variable,
                             config.path_x13_arima,
                             config.style_graph, config.color1, config.color2, 
                             config.color3, config.color4, config.color5)
@@ -67,7 +68,7 @@ except:
     print(f"\n\n{'=' * 80}\n\n")
     exit()
 
-stationarity = Stationarity_diff(data_non_seasonal, config.variable, config.p_value_accepted)
+stationarity = Stationarity_diff(data_non_seasonal, variable, config.p_value_accepted)
 
 stationarity.adf_teste()
 stationarity.diff_data()
@@ -99,7 +100,7 @@ except:
 
 # model execute {
 # --------------------------------------------------------------------------
-model = Model_execute(data_stationarity, config.variable,
+model = Model_execute(data_stationarity, variable,
 		      config.style_graph, config.color1, config.color2, 
                       config.color3, config.color4, config.color5)
 

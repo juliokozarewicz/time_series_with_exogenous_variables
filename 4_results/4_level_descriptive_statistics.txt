@@ -2,10 +2,10 @@
 Descriptive analysis:
 
 Variable: IDP (level)
-Mean: 6365.36
-Median: 6130.70
-Sample std: 2870.73
-Variance: 8241065.79
+Mean: 5554.40
+Median: 5385.35
+Sample std: 2673.46
+Variance: 7147367.60
 Lowest: -103.30
-Highest: 16274.70
+Highest: 12357.30
 --------------------------------------------------

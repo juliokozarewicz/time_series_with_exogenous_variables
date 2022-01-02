@@ -1,5 +1,3 @@
-from datetime import datetime
-from pmdarima.arima import auto_arima
 from pandas import DataFrame, read_csv, concat
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from matplotlib import pyplot as plt
@@ -15,6 +13,7 @@ from config import fore_period
 class Model_execute:
     """
     Class responsible for estimating the model.
+    
     Required settings:
     - data (input data)
     - variable (formatted dependent variable - "NAME VARIABLE")
@@ -27,8 +26,8 @@ class Model_execute:
     - color4 (color setting)
     - color5 (color setting)
      
-    Syntax: Model_execute(data, variable, style_graph,
-                                          color1, color2, color3, color4, color5)
+    Syntax: Model_execute(data, variable, style_graph, 
+                            color1, color2, color3, color4, color5)
     """
 
     def __init__(self, data, variable, 
@@ -207,12 +206,19 @@ class Model_execute:
                                          exog=data_exogs_fore)
         
         self.data_endog = concat([self.data_endog, predict])
+        self.data_endog.columns = [f"index_date",
+                                   f"{self.variable_}_observed", 
+                                   f"{self.variable_}_predicted"]
         
         # predicted plot
         predict.plot(color=self.color3)
-        
+
+        #######################################################################
+        #
+        #######################################################################
+
         # *** save data ***
-        self.data_endog.to_csv("3_working/observed_fitted_predict.csv", sep=",")
+        self.data_endog.to_csv("3_working/observed_fitted_predicted.csv", sep=",")
         
         # plot legends
         plt.legend([f"observed",

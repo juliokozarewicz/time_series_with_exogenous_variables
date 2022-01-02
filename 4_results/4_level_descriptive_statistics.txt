@@ -1,11 +1,11 @@
 --------------------------------------------------
 Descriptive analysis:
 
-Variable: IDP (level)
-Mean: 5554.40
-Median: 5385.35
-Sample std: 2673.46
-Variance: 7147367.60
-Lowest: -103.30
-Highest: 12357.30
+Variable: IEC (level)
+Mean: -1046.86
+Median: -1109.40
+Sample std: 5021.64
+Variance: 25216833.28
+Lowest: -18466.40
+Highest: 22625.10
 --------------------------------------------------

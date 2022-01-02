@@ -3,13 +3,13 @@ ADF Results:
 
 Nonseasonal differences needed for stationarity: 0
 
-Variable: IDP
-ADF Test: -7.697062
+Variable: IEC
+ADF Test: -9.042567
 P-value: 0.000000
 Lags: 0
-Observations: 71
+Observations: 131
 Critical values:
-  1%: -4.092293
-  5%: -3.474246
-  10%: -3.164308
+  1%: -4.029594
+  5%: -3.444551
+  10%: -3.147026
 --------------------------------------------------

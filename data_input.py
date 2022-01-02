@@ -8,7 +8,7 @@ from config import date_predict_init, date_predict_end
 
 # training data {
 # -----------------------------------------------------------------------------
-data_entry = read_csv("3_working/data_base.csv", sep=";", decimal=".")
+data_entry = read_csv("3_working/data_base.csv", sep=",", decimal=".")
 data_entry["index_date"] = to_datetime(data_entry["index_date"])
 data_entry = data_entry.sort_values("index_date")
 

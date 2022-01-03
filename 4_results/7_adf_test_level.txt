@@ -2,7 +2,7 @@
 ADF Results (level):
 
 Variable: IEC
-ADF Test: -9.042567
+ADF Test: -9.076139
 P-value: 0.000000
 Lags: 0
 Observations: 131

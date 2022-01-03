@@ -185,15 +185,15 @@ class Model_execute:
         
         # plot observed
         effective = self.data_endog.iloc[ : , 0 ].plot(title=f"{self.variable}",
-                                                        xlabel="",
-                                                        ylabel="",
-                                                        color=self.color1,
-                                                        figsize=(12, 6))
+                                                       xlabel="",
+                                                       ylabel="",
+                                                       color=self.color1,
+                                                       figsize=(12, 6))
         
         # plot fitted
         fitted = self.data_endog.iloc[ : , 1 ].plot(xlabel="",
-                                                        ylabel="",
-                                                        color=self.color2)
+                                                    ylabel="",
+                                                    color=self.color2)
         
         # *** r-squared ***
         r2_fit = init_fitted - len(self.data_endog)
@@ -206,10 +206,10 @@ class Model_execute:
                                          exog=data_exogs_fore)
         
         self.data_endog = concat([self.data_endog, predict])
-        self.data_endog.columns = [f"index_date",
-                                   f"{self.variable_}_observed", 
+        self.data_endog.columns = [f"{self.variable_}_observed",
+                                   f"{self.variable_}_fitted",
                                    f"{self.variable_}_predicted"]
-        
+
         # predicted plot
         predict.plot(color=self.color3)
 
@@ -218,7 +218,8 @@ class Model_execute:
         #######################################################################
 
         # *** save data ***
-        self.data_endog.to_csv("3_working/observed_fitted_predicted.csv", sep=",")
+        self.data_endog.to_csv("3_working/3_observed_fitted_predicted.csv", sep=",", 
+                               index_label="index_date")
         
         # plot legends
         plt.legend([f"observed",

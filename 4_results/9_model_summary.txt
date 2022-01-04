@@ -3,7 +3,7 @@
 Dep. Variable:                    iec   No. Observations:                  132
 Model:               SARIMAX(1, 0, 0)   Log Likelihood               -1297.747
 Date:                Tue, 04 Jan 2022   AIC                           2603.493
-Time:                        12:17:29   BIC                           2615.024
+Time:                        13:52:31   BIC                           2615.024
 Sample:                    01-01-2010   HQIC                          2608.179
                          - 12-01-2020                                         
 Covariance Type:                  opg                                         

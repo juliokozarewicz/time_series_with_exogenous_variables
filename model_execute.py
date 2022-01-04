@@ -194,7 +194,16 @@ class Model_execute:
         predict = self.model_fit.predict(start=len(self.data_endog) - 1, 
                                          end=len(self.data_endog) + (fore_period - 1), 
                                          exog=data_exogs_fore)
-
+        
+        #######################################################################
+        # confidence interval
+        mean = predict.mean()
+        std = predict.std()
+        n = len(predict) - 1
+        
+        interval = fill_between(predict.index, (predict -std), (predict + std), color=self.color4, alpha=0.15)
+        #######################################################################
+        
         # predicted plot
         predict.plot(color=self.color3)
         
@@ -218,13 +227,10 @@ class Model_execute:
         self.data_endog.to_csv("3_working/3_observed_fitted_predicted.csv", sep=",", 
                                index_label="index_date")
         
-        #########################################################################
-        #########################################################################
-        
         # plot legends
         plt.legend([f"observed",
                     f"fitted model (R² = {r2:.2f}%)",
-                    f"forecast"])
+                    f"forecast","std"])
         
         # save
         plt.tight_layout()

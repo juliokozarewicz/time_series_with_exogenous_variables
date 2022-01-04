@@ -190,6 +190,14 @@ class Model_execute:
                                                        color=self.color1,
                                                        figsize=(12, 6))
         
+        # *** forecast ***
+        predict = self.model_fit.predict(start=len(self.data_endog) - 1, 
+                                         end=len(self.data_endog) + (fore_period - 1), 
+                                         exog=data_exogs_fore)
+
+        # predicted plot
+        predict.plot(color=self.color3)
+        
         # plot fitted
         fitted = self.data_endog.iloc[ : , 1 ].plot(xlabel="",
                                                     ylabel="",
@@ -200,26 +208,18 @@ class Model_execute:
         r2 = r2_score(self.data_endog.iloc[ r2_fit : -1 , 0 ],
                       self.data_endog.iloc[ r2_fit : -1 , 1 ])
         
-        # *** forecast ***
-        predict = self.model_fit.predict(start=len(self.data_endog), 
-                                         end=len(self.data_endog) + fore_period, 
-                                         exog=data_exogs_fore)
-        
+        # rename df results
         self.data_endog = concat([self.data_endog, predict])
         self.data_endog.columns = [f"{self.variable_}_observed",
                                    f"{self.variable_}_fitted",
                                    f"{self.variable_}_predicted"]
-
-        # predicted plot
-        predict.plot(color=self.color3)
-
-        #######################################################################
-        #
-        #######################################################################
-
+        
         # *** save data ***
         self.data_endog.to_csv("3_working/3_observed_fitted_predicted.csv", sep=",", 
                                index_label="index_date")
+        
+        #########################################################################
+        #########################################################################
         
         # plot legends
         plt.legend([f"observed",

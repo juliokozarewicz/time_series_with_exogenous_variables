@@ -8,7 +8,7 @@ date_train_init = "2010-01"
 date_train_end = "2020-12"
 
 date_predict_init = date_train_end
-date_predict_end = "2022-01"
+date_predict_end = "2021-12"
 
 # amount of extra data in the independent variables
 fore_period = 12
@@ -26,7 +26,7 @@ p_value_accepted = 0.05
 # --------------------------------------------------------------------------
 p = 1 #1
 d = 0 #1
-q = 1 #1
+q = 0 #1
 P = 0 #1
 D = 0 #1
 Q = 0 #1

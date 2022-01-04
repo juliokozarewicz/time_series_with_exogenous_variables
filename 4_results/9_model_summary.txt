@@ -1,27 +1,25 @@
                                SARIMAX Results                                
 ==============================================================================
 Dep. Variable:                    iec   No. Observations:                  132
-Model:               SARIMAX(1, 0, 1)   Log Likelihood               -1295.570
-Date:                Mon, 03 Jan 2022   AIC                           2601.140
-Time:                        12:54:58   BIC                           2615.554
-Sample:                    01-01-2010   HQIC                          2606.997
+Model:               SARIMAX(1, 0, 0)   Log Likelihood               -1297.747
+Date:                Tue, 04 Jan 2022   AIC                           2603.493
+Time:                        12:17:29   BIC                           2615.024
+Sample:                    01-01-2010   HQIC                          2608.179
                          - 12-01-2020                                         
 Covariance Type:                  opg                                         
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-intercept   -534.4028    308.407     -1.733      0.083   -1138.869      70.063
-ipca       -1367.4826   1034.482     -1.322      0.186   -3395.030     660.065
-ar.L1          0.7474      0.141      5.309      0.000       0.471       1.023
-ma.L1         -0.4893      0.193     -2.530      0.011      -0.868      -0.110
-sigma2       2.01e+07      0.144   1.39e+08      0.000    2.01e+07    2.01e+07
+intercept   -691.3440    413.786     -1.671      0.095   -1502.350     119.662
+ipca       -1367.4828   1033.981     -1.323      0.186   -3394.048     659.082
+ar.L1          0.3423      0.083      4.115      0.000       0.179       0.505
+sigma2      2.041e+07   1.45e+06     14.077      0.000    1.76e+07    2.32e+07
 ===================================================================================
-Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):               199.40
-Prob(Q):                              1.00   Prob(JB):                         0.00
-Heteroskedasticity (H):               2.82   Skew:                             0.67
-Prob(H) (two-sided):                  0.00   Kurtosis:                         8.87
+Ljung-Box (L1) (Q):                   0.12   Jarque-Bera (JB):               162.28
+Prob(Q):                              0.73   Prob(JB):                         0.00
+Heteroskedasticity (H):               2.36   Skew:                             0.55
+Prob(H) (two-sided):                  0.01   Kurtosis:                         8.32
 ===================================================================================
 
 Warnings:
 [1] Covariance matrix calculated using the outer product of gradients (complex-step).
-[2] Covariance matrix is singular or near-singular, with condition number 3.71e+23. Standard errors may be unstable.

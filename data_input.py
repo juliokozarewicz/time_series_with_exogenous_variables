@@ -27,7 +27,7 @@ data_exogs = data_select.iloc[ : , 1 :   ]
 
 # exogs for forecast {
 # -----------------------------------------------------------------------------
-data_exogs_fore = data_entry[ (data_entry.iloc[:,0] >= date_predict_init) &
+data_exogs_fore = data_entry[ (data_entry.iloc[:,0] > date_predict_init) &
                               (data_entry.iloc[:,0] <= date_predict_end) ]
 
 data_exogs_fore = data_exogs_fore.set_index("index_date")

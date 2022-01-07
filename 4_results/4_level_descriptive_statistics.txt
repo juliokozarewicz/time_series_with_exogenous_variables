@@ -1,0 +1,11 @@
+--------------------------------------------------
+Descriptive analysis:
+
+Variable: CRUDE STEEL (THOUSAND TON) (level)
+Mean: 2687.74
+Median: 2742.90
+Sample std: 307.46
+Variance: 94529.11
+Lowest: 1616.60
+Highest: 3276.40
+--------------------------------------------------

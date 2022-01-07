@@ -178,7 +178,7 @@ class Model_execute:
         plt.style.use(self.style_graph)
         
         # *** fit model ***
-        init_fitted = 12
+        init_fitted = 24
         self.data_endog[f"{self.variable_}_fitted"] = self.model_fit.predict(start=init_fitted,
                                                                              dynamic=False)
         
@@ -198,6 +198,8 @@ class Model_execute:
         r2_fit = init_fitted - len(self.data_endog)
         r2 = r2_score(self.data_endog.iloc[ r2_fit : -1 , 0 ],
                       self.data_endog.iloc[ r2_fit : -1 , 1 ])
+
+        r2 = r2 * 100
         
         # *** forecast ***
         predict = self.model_fit.get_prediction(start=len(self.data_endog) - 1, 

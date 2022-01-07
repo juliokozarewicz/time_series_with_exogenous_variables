@@ -1,0 +1,13 @@
+--------------------------------------------------
+ADF Results (level):
+
+Variable: CRUDE STEEL (THOUSAND TON)
+ADF Test: -5.362221
+P-value: 0.000043
+Lags: 0
+Observations: 262
+Critical values:
+  1%: -3.993745
+  5%: -3.427381
+  10%: -3.136977
+--------------------------------------------------

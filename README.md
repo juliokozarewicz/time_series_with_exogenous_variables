@@ -1,6 +1,11 @@
-# **DESCRIPTION**
+<img src="0_files/banner.png"> <br /> <br />
 
-## Forecast of crude steel production explained by pig iron production.
+# **EXAMPLE OF RESULTS:**
+
+## Forecast of crude steel production explained by pig iron production
+To make a prediction of crude steel production, using pig iron production as the explanatory variable, it was first necessary to make a prediction for the values of the independent variable. These values were entered into the database and thus the values of the dependent variable were predicted.
+
+Results of the pig iron prediction model: https://github.com/juliokozarewicz/pig_iron
 
 ## Pig iron
 The vast majority of pig iron is produced and consumed within integrated steel mill complexes. In this context the term “pig iron” is something of a misnomer: within integrated steel mills, blast furnace iron is transferred directly to the steel plant in liquid form, better known as "hot metal" or "blast furnace iron."

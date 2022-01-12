@@ -6,6 +6,7 @@ from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from sklearn.metrics import r2_score
 from numpy import arange
 from data_input import data_exogs_fore, date_predict_init, date_predict_end
+from data_input import data_endog as data_original
 from config import fore_period
 
 
@@ -24,7 +25,7 @@ class Model_execute:
     - color3 (color setting)
     - color4 (color setting)
     - color5 (color setting)
-     
+    
     Syntax: Model_execute(data, variable, style_graph, 
                             color1, color2, color3, color4, color5)
     """
@@ -75,6 +76,7 @@ class Model_execute:
                         trend="c")
         
         self.model_fit = self.model.fit(disp=False)
+        self.resid = DataFrame(self.model_fit.resid, columns=[f"{self.variable}"]).iloc[1:,:]
         model_result = self.model_fit.summary()
         
         with open('4_results/9_model_summary.txt', 'w') as desc_stat:
@@ -90,7 +92,7 @@ class Model_execute:
         
         fig, ax = plt.subplots(2, 1, sharex=False, figsize=( 12 , 6), dpi=300)
         
-        resid = DataFrame(self.model_fit.resid, columns=[f"{self.variable}"])
+        resid = self.resid
         
         acf = plot_acf(resid.values.squeeze(),
                             lags = len(resid) / 3,
@@ -130,7 +132,7 @@ class Model_execute:
         plt.rcParams.update({'font.size': 12})
         plt.style.use(self.style_graph)
         
-        resid = DataFrame(self.model_fit.resid, columns=[f"{self.variable}"])
+        resid = self.resid
         
         resid_plot_fd = resid.hist(color=self.color2,
                                    legend=False,
@@ -151,7 +153,7 @@ class Model_execute:
         Residuals time serie plot.
         """
         
-        resid = DataFrame(self.model_fit.resid, columns=[f"{self.variable}"])
+        resid = self.resid
         
         fig, ax = plt.subplots(1, 1, sharex=False, figsize=( 12 , 6), dpi=300)
         
@@ -190,15 +192,14 @@ class Model_execute:
                                                        figsize=(12, 6))
         
         # plot fitted
-        fitted = self.data_endog.iloc[ : , 1 ].plot(xlabel="",
-                                                    ylabel="",
-                                                    color=self.color2)
+        fitted = self.data_endog.iloc[ : , 1 ]
+        fitted = fitted.plot(xlabel="", ylabel="", color=self.color2)
         
         # *** r-squared ***
         r2_fit = init_fitted - len(self.data_endog)
         r2 = r2_score(self.data_endog.iloc[ r2_fit : -1 , 0 ],
                       self.data_endog.iloc[ r2_fit : -1 , 1 ])
-
+        
         r2 = r2 * 100
         
         # *** forecast ***
@@ -240,7 +241,7 @@ class Model_execute:
                                    f"ci_95_lower", 
                                    f"ci_95_upper"]
         
-        # *** save data ***
+        # *** save data ***
         self.data_endog.to_csv("3_working/3_observed_fitted_predicted.csv", sep=",", 
                                index_label="index_date")
         

@@ -1,11 +1,12 @@
 import config
 import warnings
-from pandas import read_csv, to_datetime
+from pandas import read_csv, to_datetime, concat
 from descriptive_statistics import Time_serie_level
 from x13arima_seas_adjust import X13_arima_desaz
 from stationarity import Stationarity_diff
 from model_execute import Model_execute
 from data_input import variable, data_endog, data_exogs
+
 
 # suppress warnings - sorry about that =(
 warnings.filterwarnings("ignore")
@@ -54,7 +55,6 @@ x13_desaz.independent_desaz_x13()
 
 try:
     data_non_seasonal = read_csv("3_working/1_seasonal_adjustment.csv", sep=",", decimal=".")
-
     data_non_seasonal["index_date"] = to_datetime(data_non_seasonal["index_date"])
     data_non_seasonal = data_non_seasonal.sort_values("index_date")
     data_non_seasonal = data_non_seasonal.set_index("index_date")
@@ -83,6 +83,7 @@ stationarity.independent_var_stationarity()
 
 # open stationary data
 # --------------------------------------------------------------------------
+
 try:
     data_stationarity = read_csv("3_working/2_stationary.csv", sep=",", decimal=".")
 
@@ -95,13 +96,25 @@ except:
     print("The file '2_stationary.csv' was not found in the '3_working' folder.")
     print(f"\n\n{'=' * 80}\n\n")
     exit()
+
 # --------------------------------------------------------------------------
 #   }
 
 # model execute {
 # --------------------------------------------------------------------------
-model = Model_execute(data_stationarity, variable,
-		      config.style_graph, config.color1, config.color2, 
+data_non_seasonal_endog = read_csv("3_working/1_seasonal_adjustment.csv", 
+                                   sep=",", decimal=".")
+
+data_non_seasonal_endog["index_date"] = to_datetime(data_non_seasonal_endog["index_date"])
+data_non_seasonal_endog = data_non_seasonal_endog.sort_values("index_date")
+data_non_seasonal_endog = data_non_seasonal_endog.set_index("index_date")
+
+data_model = concat([data_non_seasonal_endog,
+                     data_stationarity.iloc[ : , 2 : ]], 
+                     axis=1)
+
+model = Model_execute(data_model, variable,
+                      config.style_graph, config.color1, config.color2, 
                       config.color3, config.color4, config.color5)
 
 model.model_execute(config.p, config.d, config.q, 

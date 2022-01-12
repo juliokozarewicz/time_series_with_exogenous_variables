@@ -85,7 +85,7 @@ stationarity.independent_var_stationarity()
 # --------------------------------------------------------------------------
 
 try:
-    data_stationarity = read_csv("3_working/2_stationary.csv", sep=",", decimal=".")
+    data_stationarity = read_csv("3_working/2.1_stationary_exog.csv", sep=",", decimal=".")
 
     data_stationarity["index_date"] = to_datetime(data_stationarity["index_date"])
     data_stationarity = data_stationarity.sort_values("index_date")
@@ -93,7 +93,7 @@ try:
 
 except:
     print(f"\n\n\n{'=' * 80}\n\n")
-    print("The file '2_stationary.csv' was not found in the '3_working' folder.")
+    print("The file '2.1_stationary_exog.csv' was not found in the '3_working' folder.")
     print(f"\n\n{'=' * 80}\n\n")
     exit()
 

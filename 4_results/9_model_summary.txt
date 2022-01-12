@@ -3,7 +3,7 @@
 Dep. Variable:     crude_steel_(thousand_ton)   No. Observations:                  263
 Model:                       SARIMAX(2, 0, 1)   Log Likelihood               -1577.012
 Date:                        Wed, 12 Jan 2022   AIC                           3166.025
-Time:                                08:35:05   BIC                           3187.458
+Time:                                11:25:09   BIC                           3187.458
 Sample:                            01-01-2000   HQIC                          3174.638
                                  - 11-01-2021                                         
 Covariance Type:                          opg                                         

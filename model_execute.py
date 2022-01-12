@@ -76,7 +76,7 @@ class Model_execute:
                         trend="c")
         
         self.model_fit = self.model.fit(disp=False)
-        self.resid = DataFrame(self.model_fit.resid, columns=[f"{self.variable}"]).iloc[1:,:]
+        self.resid = DataFrame(self.model_fit.resid, columns=[f"{self.variable}"]).iloc[ 1 : , : ]
         model_result = self.model_fit.summary()
         
         with open('4_results/9_model_summary.txt', 'w') as desc_stat:
@@ -180,7 +180,7 @@ class Model_execute:
         plt.style.use(self.style_graph)
         
         # *** fit model ***
-        init_fitted = 24
+        init_fitted = 2
         self.data_endog[f"{self.variable_}_fitted"] = self.model_fit.predict(start=init_fitted,
                                                                              dynamic=False)
         

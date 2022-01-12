@@ -1,5 +1,5 @@
 from statsmodels.tsa.stattools import adfuller as adf
-from pandas import read_csv, DataFrame, to_datetime, concat
+from pandas import read_csv, DataFrame, to_datetime
 from matplotlib import pyplot as plt
 
 
@@ -72,7 +72,7 @@ class Stationarity_diff:
             adf_p_value = adf_test_diff[1]
             
             if adf_p_value > self.p_value_accepted:
-                stationary_series = self.data_endog.diff().fillna(value=0)
+                stationary_series = self.data_endog.diff().dropna()
                 self.data_endog = stationary_series
                 count_diff += 1
             
@@ -99,6 +99,8 @@ class Stationarity_diff:
                 
                 break
         
+        self.data_endog.to_csv("3_working/2.0_stationary_endog.csv")
+        
         return
 
 
@@ -106,21 +108,22 @@ class Stationarity_diff:
         """
         Treatment of stationarity of independent variables.
         """
-       
-        list_exog_col = self.data_all.columns.to_list()
+        
+        list_exog_col = self.data_exogs.columns.to_list()
         
         for col in list_exog_col:
             while True:
-                adf_test_diff = adf(self.data_all[col], regression='ct')
+                adf_test_diff = adf(self.data_exogs[col], regression='ct')
                 adf_p_value = adf_test_diff[1]
                 
                 if adf_p_value > self.p_value_accepted:
-                    stat_col = self.data_all[col].diff().fillna(value=0)
-                    self.data_all[col] = stat_col
+                    stat_col = self.data_exogs[col].diff().dropna()
+                    self.data_exogs[col] = stat_col
                 
                 else:
                     break
         
-        self.data_all.to_csv("3_working/2_stationary.csv")
+        self.data_exogs.to_csv("3_working/2.1_stationary_exog.csv")
         
         return
+
